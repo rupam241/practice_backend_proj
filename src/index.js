@@ -3,11 +3,22 @@ import {DB_NAME} from './constants.js'
 import express from 'express';
 import dotenv from "dotenv"
 import connectDb from "./db/index.js";
+import { app } from "./app.js";
 
 dotenv.config();
 
 
-connectDb();
+connectDb()
+.then(()=>{
+    app.listen(process.env.PORT||8000,()=>{
+
+        console.log(`SRVER IS RUNNING ON THE ${process.env.PORT}`)
+
+    })
+})
+.catch((err)=>{
+    console.log("mongodb connection failed,",err)
+})
 
 
 // (async () => {
